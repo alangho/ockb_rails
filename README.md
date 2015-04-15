@@ -1,0 +1,1 @@
+Attempting to develop the Open Class Knowledge Base in Rails.
