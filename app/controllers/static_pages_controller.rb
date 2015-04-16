@@ -7,4 +7,8 @@ class StaticPagesController < ApplicationController
 
   def categories
   end
+
+  def signup
+  end
+  
 end
