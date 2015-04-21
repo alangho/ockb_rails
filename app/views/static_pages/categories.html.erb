@@ -1,5 +1,16 @@
 <% provide(:title, "Categories") %>
-<h1>Categories</h1>
-<p>
-	Test
-</p>
+
+<div class = "container">
+    <div class = "row">
+      <div class = "col-xs-12">
+        <h1>Pick a Category to Explore</h1>
+    </div>
+</div>
+<div class = "row row-title">
+    <div class = "col-xs-12" ID = "addCategory">
+      <span class="glyphicon glyphicon-plus"></span>
+      <a class = "postLink" href = "@routes.Application.addCategory()">Request a Category</a>
+  </div>     
+</div>
+<%= render 'category/categories_display' %>
+</div>

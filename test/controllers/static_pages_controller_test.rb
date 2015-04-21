@@ -24,10 +24,4 @@ end
     assert_select "title", "Categories | #{@base_title}"
   end
 
-  test "should get signup" do 
-    get :signup
-    assert_response :success
-    assert_select "title", "Sign Up | #{@base_title}"
-  end
-
 end
