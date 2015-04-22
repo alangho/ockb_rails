@@ -5,7 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-/
+
 Category.create(title: 'ArrayList', description: 'Array lists are variable-sized list data structures.')
 Category.create(title: 'Binary Search Tree', description: 'A binary tree that has been sorted for the purpose of searching.')
 Category.create(title: 'Comparators', description: 'Comparing one thing to another thing.')
@@ -30,4 +30,19 @@ Category.create(title: 'Recursive Backtracking', description: 'Using recursion t
 Category.create(title: 'Sorting', description: 'Sorting is any process of arranging items according to a certain sequence.')
 Category.create(title: 'Stacks', description: 'Stacks are data structures that follow the "first in, last out" idea.')
 Category.create(title: 'Tree Traversals', description: 'The different ways one can go through a tree structure.')
-/
+
+User.create!(name:  "Example User",
+             email: "example@railstutorial.org",
+             password:              "foobar",
+             password_confirmation: "foobar", 
+             admin: true)
+
+99.times do |n|
+  name  = Faker::Name.name
+  email = "example-#{n+1}@railstutorial.org"
+  password = "password"
+  User.create!(name:  name,
+               email: email,
+               password:              password,
+               password_confirmation: password)
+end

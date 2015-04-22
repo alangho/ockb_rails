@@ -1,4 +1,6 @@
 class StaticPagesController < ApplicationController
+  before_action :logged_in_user, only: [:dashboard, :categories]
+
   def home
   end
 
@@ -11,4 +13,5 @@ class StaticPagesController < ApplicationController
   def signup
   end
   
+
 end

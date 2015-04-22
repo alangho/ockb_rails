@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :logged_in_user, only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -29,6 +31,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         flash[:success] = "Welcome to the Sample App!"
+        log_in @user
         format.html { redirect_to @user }
         format.json { render :show, status: :created, location: @user }
       else
@@ -72,4 +75,13 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:email, :name, :password, :password_confirmation)
     end
+
+    # Before filters
+
+    # Confirms the correct user.
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_url) unless current_user?(@user)
+    end
+
 end
