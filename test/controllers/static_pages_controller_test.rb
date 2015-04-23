@@ -14,14 +14,12 @@ end
 
   test "should get dashboard" do
     get :dashboard
-    assert_response :success
-    assert_select "title", "Dashboard | #{@base_title}"
+    assert_redirected_to login_path
   end
 
   test "should get categories" do
     get :categories
-    assert_response :success
-    assert_select "title", "Categories | #{@base_title}"
+    assert_redirected_to login_path
   end
 
 end

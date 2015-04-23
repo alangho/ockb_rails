@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422210318) do
+ActiveRecord::Schema.define(version: 20150423005421) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
@@ -26,11 +26,16 @@ ActiveRecord::Schema.define(version: 20150422210318) do
     t.string   "status"
     t.string   "role"
     t.string   "image_url"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "password_digest"
     t.string   "remember_digest"
-    t.boolean  "admin",           default: false
+    t.boolean  "admin",             default: false
+    t.string   "activation_digest"
+    t.boolean  "activated",         default: false
+    t.datetime "activated_at"
+    t.string   "reset_digest"
+    t.datetime "reset_sent_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
