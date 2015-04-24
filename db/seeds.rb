@@ -52,7 +52,7 @@ User.create!(name:  "Example User",
 end
 
 users = User.order(:created_at).take(20)
-(1..20).each do |n|
+(1..19).each do |n|
   content = Faker::Lorem.paragraph(5)
   title = Faker::Lorem.sentence(8)
   users.each { |user| user.posts.create!(content: content, 
