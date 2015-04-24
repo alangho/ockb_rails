@@ -1,10 +1,6 @@
 <% provide(:title, @category.title) %>
 <div class="row">
-      <h2>
-        <%= @category.title %>
-      </h2>
-      <p>
-        <%= @category.description %>
-    </p>
-
+	<ol class="posts">
+		<%= render 'posts/post' %>
+	</ol>
 </div>
