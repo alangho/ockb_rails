@@ -59,3 +59,23 @@ users = User.order(:created_at).take(20)
                                         category_id: n,
                                         title: title) }
 end
+
+users = User.order(:created_at).take(3)
+(1..19).each do |n|
+  content = Faker::Lorem.paragraph(5)
+  title = Faker::Lorem.sentence(8)
+  users.each { |user| user.posts.create!(content: content, 
+                                        category_id: n,
+                                        title: title,
+                                        sticky: true) }
+end
+
+users = User.order(:created_at).take(3)
+(1..19).each do |n|
+  content = Faker::Lorem.paragraph(5)
+  title = Faker::Lorem.sentence(8)
+  users.each { |user| user.posts.create!(content: content, 
+                                        category_id: n,
+                                        title: title,
+                                        challenge: true) }
+end

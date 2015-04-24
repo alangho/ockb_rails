@@ -1,7 +1,7 @@
     <div class="container">
       <ol class="breadcrumb">
         <li><%= link_to "Categories", categories_path %></li>
-        <li><%= link_to @category.title, "#" %></li>
+        <li><%= link_to @category.title %></li>
       </ol>
 
       <form class="navbar-form navbar-right" action="@link(0, "name")" method="GET">
@@ -17,6 +17,7 @@
       <p>
         <%= @category.description %>
       </p>
+
       <h3> <div class="dropdown">
        <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
         Spring 2014 <span class="caret"></span>
@@ -62,8 +63,9 @@
         </div>
       </div>
     </div>
+
     <!-- Stickies -->
-    @for(sticky <- stickyList) {
+    <% @sticky.each do |sticky| %>
     <section>
      <div class="panel panel-warning">
        <div class="panel-heading">
@@ -72,36 +74,35 @@
             <span class="label label-warning">STICKY</span>
           </div>
           <div class = "col-xs-11">
-            <a href = "@routes.Application.post(sticky.id)" class = "postLink"> @sticky.title</a>
-            @if(user != null){
-            <span class = "pull-right">Submitted by @post.userName</span>
-          }
+            <%= link_to sticky.title, sticky %>
+            <span class = "pull-right">Submitted by <%= sticky.user.name %></span>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </section>
+  <% end %>
+
+  <hr>
+
+  <!-- Code Challenge -->
+  <% @challenge.each do |challenge| %>
+  <section>
+   <div class="panel panel-danger">
+     <div class="panel-heading">
+      <div class = "row">   
+        <div class = "col-xs-1">
+          <span class="label label-danger">CHALLENGE</span>
+        </div> 
+        <div class = "col-xs-11">
+          <%= link_to challenge.title, challenge %>
+
         </div>
       </div> 
     </div>
   </div>
 </section>
-}
-
-<hr>
-
-<!-- Code Challenge -->
-@for(challenge <- codeChallengeList) {
-<section>
- <div class="panel panel-danger">
-   <div class="panel-heading">
-    <div class = "row">   
-      <div class = "col-xs-1">
-        <span class="label label-danger">CHALLENGE</span>
-      </div> 
-      <div class = "col-xs-11">
-        <a href = "@routes.Application.codeChallenge(challenge.id)" class = "postLink"> @challenge.title</a>
-      </div>
-    </div> 
-  </div>
-</div>
-</section>
-}
+<% end %>
 
 <hr>
 
@@ -112,47 +113,46 @@
   <div class = "row">
 
     <div class = "col-xs-12">
-    
 
-    <% if(@posts.count % 2 == 0) %>
-    <div class="panel panel-default">
-    <% else %>
-    <div class="panel panel-info">
-    
-    <% end %>
 
-    <div class = "panel-heading">
-      <div class = "row">
-        <div class = "col-xs-1">
-          <div class = "label label-info">
-            <%= post.id %>
+      <% if(@posts.count % 2 == 0) %>
+      <div class="panel panel-default">
+        <% else %>
+        <div class="panel panel-info">
+
+          <% end %>
+
+          <div class = "panel-heading">
+            <div class = "row">
+              <div class = "col-xs-1">
+                <div class = "label label-info">
+                  #<%= post.id %>
+                </div>
+              </div>
+              <div class = "col-xs-8">
+                <%= link_to post.title, post %>
+              </div>
+              <div class = "col-xs-3">
+                <div class = "pull-right">
+                  @post.commentList.length
+                  @if(post.commentList.length == 1){
+                  Answer
+                }else{
+                Answers
+              }
+            </div>
+          </div>
+
+        </div>
+
+        <div class = "row">
+          <div class = "col-xs-3 col-xs-offset-10 pull-right">
+            <div class = "author">
+              Submitted by <span class = "badge"><%= post.user.name %></span> 
+            </div>
+            <span class="timestamp">Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
           </div>
         </div>
-        <div class = "col-xs-8">
-          <!-- will need link_to here for each post -->
-          <a href = "@routes.Application.post(post.id)" class = "postLink"><%= post.title %></a>
-        </div>
-        <div class = "col-xs-3">
-          <div class = "pull-right">
-            @post.commentList.length
-            @if(post.commentList.length == 1){
-            Answer
-          }else{
-          Answers
-        }
-      </div>
-    </div>
-
-  </div>
-
-  <div class = "row">
-    <div class = "col-xs-3 col-xs-offset-10 pull-right">
-      <div class = "author">
-        Submitted by <span class = "badge"><%= post.user.name %></span> 
-      </div>
-      <span class="timestamp">Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
-    </div>
-  </div>
 
 <!--                         <span class="label label-info">#@post.id</span><a href = "@routes.Application.post(post.id)" class = "postLink"> @post.title</a>
                           <span class = "pull-right stats">@post.comments Answers</span>
@@ -171,10 +171,10 @@
                       </form>
                     </div>
                     <% end %>
-                  
-                </div> 
-                <% end %>
-                <!--row  -->
+
+                  </div> 
+                  <% end %>
+                  <!--row  -->
             <!-- @if(index % 2 == 0){
                 <div class="panel panel-default">
             }else{
@@ -195,33 +195,7 @@
                     </div>
                   </div> -->
                 </section>
-              }
+                
 
-              <!-- Pagination -->
-              <div id="pagination">
-                <ul class="pagination">
-                  @if(currentPage.hasPrev) {
-                  <li class="prev">
-                    <a href="@link(currentPage.getPageIndex - 1, null)">&larr; Previous</a>
-                  </li>
-                } else {
-                <li class="prev disabled">
-                  <a>&larr; Previous</a>
-                </li>
-              }
-              <li class="current">
-                <a>Displaying @currentPage.getDisplayXtoYofZ(" to "," of ")</a>
-              </li>
-              @if(currentPage.hasNext) {
-              <li class="next">
-                <a href="@link(currentPage.getPageIndex + 1, null)">Next &rarr;</a>
-              </li>
-            } else {
-            <li class="next disabled">
-              <a>Next &rarr;</a>
-            </li>
-          }
-        </ul>
-      </div>
-    </div>
+              </div>
 

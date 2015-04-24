@@ -1,6 +1,3 @@
 <% provide(:title, @category.title) %>
-<div class="row">
-	<ol class="posts">
 		<%= render 'posts/post' %>
-	</ol>
-</div>
+	<%= will_paginate @posts %>
