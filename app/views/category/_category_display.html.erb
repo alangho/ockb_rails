@@ -11,12 +11,8 @@
         </div>
       </form>
       
-      <h2>
-        <%= @category.title %>
-      </h2>
-      <p>
-        <%= @category.description %>
-      </p>
+      <h2><%= @category.title %></h2>
+      <p><%= @category.description %></p>
 
       <h3> <div class="dropdown">
        <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
@@ -54,12 +50,11 @@
                 <a href="@link(0, "comments")">Answers</a>
               </li>
             </ul>
-            @if(user != null){
             <form class="navbar-form navbar-right" role="search">
               <!-- link to submit question -->
               <a href="@routes.Application.submitPost(currentCategory.id)" class="btn btn-primary">Submit Question for <%= @category.title %></a>
             </form>
-          }
+          
         </div>
       </div>
     </div>
@@ -195,7 +190,7 @@
                     </div>
                   </div> -->
                 </section>
-                
+
 
               </div>
 

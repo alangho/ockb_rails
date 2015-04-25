@@ -57,7 +57,9 @@ users = User.order(:created_at).take(20)
   title = Faker::Lorem.sentence(8)
   users.each { |user| user.posts.create!(content: content, 
                                         category_id: n,
-                                        title: title) }
+                                        title: title,
+                                        sticky: false,
+                                        challenge: false) }
 end
 
 users = User.order(:created_at).take(3)

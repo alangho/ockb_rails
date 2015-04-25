@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
-  resources :category
-  resources :posts
+  resources :category, :path => 'categories'
+  resources :posts 
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
 
