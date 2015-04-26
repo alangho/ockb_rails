@@ -1,7 +1,50 @@
 <% provide(:title, "Dashboard") %>
-<div class = "container">
-<h1>Dashboard</h1>
-<p>
-	Test
-</p>
+<div class="container">
+
+	<h1>Dashboard</h1>
+
+	<h3>Code Challenge Results</h3>
+	
+	<div class="row" id="challengeHeader">
+		<div class="col-md-4" >
+			<b>Code Challenge</b>
+		</div>
+		<div class="col-md-4">
+			<b>Score</b>
+		</div>		
+	</div>
+
+	@for(challenge <- codeChallengeList) {
+	<div class="well well-sm">
+		<div class="row">
+			<div class="col-md-4">
+				@challenge.challenge.getTitle
+			</div>
+			<div class="col-md-4">
+				@challenge.score
+			</div>
+		</div>
+	</div>
+
+<% if(current_user.admin == true) %> 
+<h3>Admin Settings</h3>
+
+<span class="col-lg-3"> 
+	<span class="glyphicon glyphicon-wrench"></span> 
+	<a class="postLink" href="@routes.Application.manageCategories()">Manage Categories</a>
+</span> 
+<span class="col-lg-3"> 
+	<span class="glyphicon glyphicon-cog"></span>
+	<a class="postLink" href="@routes.Application.courseSettings()">Course Settings</a>
+</span> 
+<span class="col-lg-3"> 
+	<span class="glyphicon glyphicon-fire"></span> 
+	<a class="postLink" href="@routes.Application.createCodeChallenge()">Create a Code Challenge Post</a>
+</span> 
+<span class="col-lg-3"> 
+	<span class="glyphicon glyphicon-stats"></span> 
+	<a class="postLink" href="@routes.Application.codeChallengeResults()">View Code Challenge Results</a>
+</span> 
+<% end %>
+
 </div>

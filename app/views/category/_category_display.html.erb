@@ -50,27 +50,49 @@
                 <a href="@link(0, "comments")">Answers</a>
               </li>
             </ul>
-            <form class="navbar-form navbar-right" role="search">
+            <form class="nav navbar-form navbar-right" role="search">
               <!-- link to submit question -->
-              <a href="@routes.Application.submitPost(currentCategory.id)" class="btn btn-primary">Submit Question for <%= @category.title %></a>
+              <%= link_to "Submit a post for #{@category.title}", new_post_path(:category_id => @category.id), class: "btn btn-primary" %>
             </form>
-          
+
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- Stickies -->
-    <% @sticky.each do |sticky| %>
+      <!-- Stickies -->
+      <% @sticky.each do |sticky| %>
+      <section>
+       <div class="panel panel-warning">
+         <div class="panel-heading">
+          <div class = "row">
+            <div class = "col-xs-1">
+              <span class="label label-warning">STICKY</span>
+            </div>
+            <div class = "col-xs-11">
+              <%= link_to sticky.title, sticky %>
+              <span class = "pull-right">Submitted by <%= sticky.user.name %></span>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </section>
+    <% end %>
+
+    <hr>
+
+    <!-- Code Challenge -->
+    <% @challenge.each do |challenge| %>
     <section>
-     <div class="panel panel-warning">
+     <div class="panel panel-danger">
        <div class="panel-heading">
-        <div class = "row">
+        <div class = "row">   
           <div class = "col-xs-1">
-            <span class="label label-warning">STICKY</span>
-          </div>
+            <span class="label label-danger">CHALLENGE</span>
+          </div> 
           <div class = "col-xs-11">
-            <%= link_to sticky.title, sticky %>
-            <span class = "pull-right">Submitted by <%= sticky.user.name %></span>
+            <%= link_to challenge.title, challenge %>
+
           </div>
         </div> 
       </div>
@@ -80,96 +102,60 @@
 
   <hr>
 
-  <!-- Code Challenge -->
-  <% @challenge.each do |challenge| %>
+  <!-- content -->
+  <% @posts.each do |post| %>
+
   <section>
-   <div class="panel panel-danger">
-     <div class="panel-heading">
-      <div class = "row">   
-        <div class = "col-xs-1">
-          <span class="label label-danger">CHALLENGE</span>
-        </div> 
-        <div class = "col-xs-11">
-          <%= link_to challenge.title, challenge %>
+    <div class = "row">
 
-        </div>
-      </div> 
-    </div>
-  </div>
-</section>
-<% end %>
-
-<hr>
-
-<!-- content -->
-<% @posts.each do |post| %>
-
-<section>
-  <div class = "row">
-
-    <div class = "col-xs-12">
+      <div class = "col-xs-12">
 
 
-      <% if(@posts.count % 2 == 0) %>
-      <div class="panel panel-default">
+        <% if(@posts.count % 2 == 0) %>
+          <div class="panel panel-default">
         <% else %>
-        <div class="panel panel-info">
+          <div class="panel panel-info">
+        <% end %>
 
-          <% end %>
-
-          <div class = "panel-heading">
-            <div class = "row">
-              <div class = "col-xs-1">
-                <div class = "label label-info">
-                  #<%= post.id %>
-                </div>
+        <div class = "panel-heading">
+          <div class = "row">
+            <div class = "col-xs-1">
+              <div class = "label label-info">
+                #<%= post.id %>
               </div>
+            </div>
               <div class = "col-xs-8">
                 <%= link_to post.title, post %>
               </div>
-              <div class = "col-xs-3">
-                <div class = "pull-right">
-                  @post.commentList.length
-                  @if(post.commentList.length == 1){
-                  Answer
-                }else{
-                Answers
-              }
+            <div class = "col-xs-3 pull-right">
+              <!-- pluralize the comment count -->
+              @post.commentList.length
             </div>
           </div>
 
-        </div>
+              <div class = "row">
+                <div class = "col-xs-3 col-xs-offset-9 pull-right">
+                  <div class = "author">
+                    Submitted by <span class = "badge"><%= post.user.name %></span> 
+                  </div>
+                  <span class="timestamp">Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
+                </div>
+              </div>
 
-        <div class = "row">
-          <div class = "col-xs-3 col-xs-offset-10 pull-right">
-            <div class = "author">
-              Submitted by <span class = "badge"><%= post.user.name %></span> 
             </div>
-            <span class="timestamp">Posted <%= time_ago_in_words(post.created_at) %> ago.</span>
           </div>
         </div>
+        <% if(current_user == post.user.name) %>
+        <div class = "col-xs-2 dangerButton">
+          <form id = "deleteForm" action = "@routes.Application.deletePost(post.id, currentCategory.id)" method="POST">
+            <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        </div>
+        <% end %>
 
-<!--                         <span class="label label-info">#@post.id</span><a href = "@routes.Application.post(post.id)" class = "postLink"> @post.title</a>
-                          <span class = "pull-right stats">@post.comments Answers</span>
-                          @if(user != null){
-                            <div class = "author">
-                                Submitted by <span class = "badge">@post.userName</span> on @post.datePosted.format("MMMM dd, yyyy h:mm:ss a")
-                            </div>
-                          } -->
-                        </div>
-                      </div>
-                    </div>
-                    <% if(current_user == post.user.name) %>
-                    <div class = "col-xs-2 dangerButton">
-                      <form id = "deleteForm" action = "@routes.Application.deletePost(post.id, currentCategory.id)" method="POST">
-                        <input type="submit" value="Delete" class="btn btn-danger">
-                      </form>
-                    </div>
-                    <% end %>
-
-                  </div> 
-                  <% end %>
-                  <!--row  -->
+      </div> 
+      <% end %>
+      <!--row  -->
             <!-- @if(index % 2 == 0){
                 <div class="panel panel-default">
             }else{

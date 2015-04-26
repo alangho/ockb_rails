@@ -1,0 +1,16 @@
+<% provide(:title, 'Submit a post') %>
+<div class="container">
+  <ol class="breadcrumb">
+    <li><%= link_to "Categories", categories_path %></li>
+    <li><%= link_to @category.title, @category %></li>
+    <li><%= link_to "Submit a post for #{@category.title}", "#" %></li>
+  </ol>
+
+  <h2>Submit a post for <%= @category.title %></h2>
+  <p><%= @category.description %></p>
+
+  <hr>
+
+  <%= render 'form' %>
+
+</div>

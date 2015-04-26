@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'comment/new'
+
   get 'password_resets/new'
 
   get 'password_resets/edit'
@@ -8,6 +10,7 @@ Rails.application.routes.draw do
   get 'categories' => 'static_pages#categories'
   get 'signup' => 'users#new'
   get 'category/new'
+  get 'categories/submit-post', :to => 'posts#new', :as => :new_post
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
