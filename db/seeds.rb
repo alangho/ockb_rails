@@ -72,7 +72,7 @@ users = User.order(:created_at).take(3)
                                         sticky: true) }
 end
 
-users = User.order(:created_at).take(3)
+users = User.order(:created_at).take(2)
 (1..19).each do |n|
   content = Faker::Lorem.paragraph(5)
   title = Faker::Lorem.sentence(8)

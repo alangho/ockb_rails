@@ -9,9 +9,10 @@ class CommentsController < ApplicationController
 			flash[:success] = "Comment posted!"
 			redirect_to @post
 		else
-			redirect_to categories_path
+			flash[:danger]= "There was an error while trying to submit your post.  Please try again"
+			redirect_to @post
 		end
-    end
+  end
 
 	private
 

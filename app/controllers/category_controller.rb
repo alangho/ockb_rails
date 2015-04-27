@@ -1,4 +1,5 @@
 class CategoryController < ApplicationController
+
   def new
   end
 
@@ -8,6 +9,9 @@ class CategoryController < ApplicationController
   	@sticky = @postList.where(sticky: true)
   	@challenge = @postList.where(challenge: true)
   	@posts = @postList.where.not(id: @sticky).where.not(id: @challenge).paginate(:page => params[:page], :per_page => 10)
+  	if params[:search]
+  		@posts = @posts.search(params[:search])
+  	end
   end
 
 end
