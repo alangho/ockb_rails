@@ -9,7 +9,6 @@
       <%= f.label :content %>
       <%= f.text_area :content, size: "20x10", resizable: false, class: 'form-control' %>
 
-      <%= f.hidden_field :user_id, value: current_user.id %>
       <%= f.hidden_field :category_id, value: @category.id %>
 
       <%= f.submit "Submit post", class: "btn btn-primary" %>

@@ -1,18 +1,22 @@
 class CommentsController < ApplicationController
-	before_action :logged_in_user [:create]
+	before_action :logged_in_user, only: [:create]
 
 	def create
-		@comment = current_user.comments.build(comment_params)
+		@post = Post.find(params[:comment][:post_id])
+		@comment = @post.comments.create(comment_params)
+		@comment.user_id = current_user.id
 		if @comment.save
-			flash[:success] = "Comment created!"
-			redirect_to root_url
+			flash[:success] = "Comment posted!"
+			redirect_to @post
 		else
-			
+			redirect_to categories_path
+		end
     end
 
 	private
 
-		def comment_params
-      		params.require(:comment).permit(:content)
-		end
+	def comment_params
+  		params.require(:comment).permit(:content)
+	end
+
 end

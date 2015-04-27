@@ -3,9 +3,11 @@ class PostsController < ApplicationController
 
 	def create
 		@post = Post.create(post_params)
+		@post.user_id = current_user.id
 		if @post.save
-			flash[:success] = "Post submitted!"
-			redirect_back_or categories_path
+			flash[:success] = "Post created!"
+			@category = Category.where(:category_id => @post.category_id)
+			redirect_to @post
 		else
 			@category = Category.find(params[:category_id])
 			@user = current_user
@@ -23,14 +25,15 @@ class PostsController < ApplicationController
 		@post = Post.find(params[:id])
 		@category = Category.find(@post.category_id)
 		@user = User.find(@post.user_id)
-		store_location
+		@comments = Comment.where(post_id: @post.id)
+		@comment = Comment.new
 	end
 
 
 	private
 
 	def post_params
-		params.require(:post).permit(:title, :content, :user_id, :category_id)
+		params.require(:post).permit(:title, :content, :category_id)
 	end
 
 end

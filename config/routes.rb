@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   get 'comment/new'
+  get 'comment/create'
 
   get 'password_resets/new'
 
   get 'password_resets/edit'
-
   root 'static_pages#home'
   get 'dashboard' => 'static_pages#dashboard'
   get 'categories' => 'static_pages#categories'
@@ -15,9 +15,12 @@ Rails.application.routes.draw do
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
 
+  resources :comments
   resources :users
   resources :category, :path => 'categories'
-  resources :posts 
+  resources :posts do
+    resources :comments
+  end
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
 

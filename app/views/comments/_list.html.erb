@@ -1,0 +1,19 @@
+<% @comments.each do |comment| %>
+
+<section>
+	<div class="panel panel-default">         
+		<div class="panel-body">
+			<div class = "row">
+				<div class = "col-sm-11 content">
+					<%= comment.content %>
+				</div>
+			</div>
+		</div>          
+		<div class="panel-footer">
+			Submitted by <span class="badge"><%= comment.user.name %></span> <%= time_ago_in_words(@post.created_at) %> ago.
+		</div>
+	</div>
+	
+</section>
+
+<% end %>

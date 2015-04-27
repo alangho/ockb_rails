@@ -78,9 +78,6 @@
           -->
         </div>
 
-
-
-
       </div>
     </div>          
     <div class="panel-footer">
@@ -89,103 +86,17 @@
   </div>
 </div>
 </section>
+
 <hr>
-<h3>@commentList.length Answers</h3>
+<h3><%= pluralize(@comments.count, "comment") %></h3>
 <hr>
 
 <!-- Replies -->
-@for(comment <- commentList) {
-<div class="panel-body">
-  <div class = "row">
-    <div class = "col-sm-11 content">
-     @Html(comment.content)
-   </div>
-
-<!--               <div class = "hidden-xs col-sm-1 votes">
-                @if(user!=null){
-                  <div>
-                    <span class = "glyphicon glyphicon-chevron-up"></span>
-                  </div>
-                }
-                <div class = "votes">
-                  1
-                </div>
-                @if(user!=null){
-                  <div>
-                    <span class = "glyphicon glyphicon-chevron-down"></span>
-                  </div>
-                }
-              </div> -->
-            </div>
-            <div class = "authorReply">
-              @if(user!=null){
-              Submitted by <span class = "badge">@comment.author</span><br>
-            }
-            Answered <span class="timeago" title="@comment.submission_date.format("yyyy-MM-dd'T'hh:mm:ss-22:00")"
-            data-toggle="tooltip" data-placement="top">@comment.submission_date.format("MMMM dd yyyy hh:mm:ss a")</span>
-
-          </div>
-        </div>
-        <hr>
-
-      }
+    <%= render 'comments/list' %>
       <!-- End of Replies -->
 
       <!-- Post a Reply -->
-      @if(user != null){
-      <hr>
-      <h3>Post a Reply</h3>
-      <form id = "editor-form" action = "@routes.Application.createComment(currentPost.category.id, currentPost.id)" method="POST">
-        <div class="form-group">
-          <textarea class="editor" name="editor1" id="editor1" rows="10" cols="80"></textarea>
-          <script>CKEDITOR.replace('editor1');</script>
-        </div>
-        <input type="submit" value="Submit Comment" class="btn btn-success btn-lg">
-      </form>
-
-    </div>
-    <!-- End toolbar -->
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-10"></div>
-        <div class="col-lg-2">
-        <!-- <button type="submit" id="submit-btn" class="btn btn-success btn-lg">Submit</button>
-        <script>
-          $('#submit-btn').click(function () {
-            // get date
-            var d = new Date();
-            var month = d.getMonth()+1;
-            var day = d.getDate();
-            var year = d.getFullYear().toString().substr(2,2);
-            var outputDate = (month<10 ? '0' : '') + month + '/' +
-              (day<10 ? '0' : '') + day + '/' + year;
-            // get time
-            var hours = d.getHours();
-            var minutes = d.getMinutes();
-            var hours = hours%24; 
-            var mid='am';
-            if(hours==0){ //At 00 hours we need to show 12 am
-              hours=12;
-            }
-            else if(hours>12){
-              hours=hours%12;
-              mid='pm';
-            }
-            if (minutes < 10){
-              minutes = "0" + minutes;
-            }
-            outputTime = hours + ":" + minutes + " " + mid;
-            var input = CKEDITOR.instances.editor1.getData();
-            CKEDITOR.instances.editor1.setData("");
-            var newEntry = $('<hr><div class = "panel-body"><div class = "row"><div class = "col-sm-11 content">' + input + '</div><div class = "col-sm-1 votes"><div><span class = "glyphicon glyphicon-chevron-up"></div><div class = "votes">0</div><div><span class = "glyphicon glyphicon-chevron-down"></div></div></div><div class = "authorReply">Submitted by <span class = "badge">You</span><br>Answered ' + outputDate + ' at ' + outputTime + '</div></div>');
-            var lastReply = $(".panel-body").get(-1);
-            console.log(lastReply);
-            $(newEntry).insertAfter(lastReply);
-            });
-          </script> -->
-        </div>
-      </div>
-    </div>
+      <%= render 'comments/form' %>
 
   </body>
 

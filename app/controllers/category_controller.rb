@@ -10,8 +10,4 @@ class CategoryController < ApplicationController
   	@posts = @postList.where.not(id: @sticky).where.not(id: @challenge).paginate(:page => params[:page], :per_page => 10)
   end
 
-  def current_category
-
-  end
 end
-
