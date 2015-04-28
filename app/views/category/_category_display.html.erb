@@ -8,14 +8,6 @@
       <p><%= @category.description %></p>
 
 <!--
-      <form class="navbar-form navbar-right" action="@link(0, "name")" method="GET">
-      	<div class="form-group">
-          <input class="form-control" type="search" id="searchbox" name="f" value="@currentFilter" placeholder="Search for...">
-          <input type="submit" id="searchsubmit" value="Submit" class="btn btn-default">
-        </div>
-      </form>
-      
-
       <h3> <div class="dropdown">
        <a id="dLabel" role="button" data-toggle="dropdown" data-target="#" href="/page.html">
         Spring 2014 <span class="caret"></span>
@@ -43,8 +35,8 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Newest <span class="sr-only">(current)</span></a></li>
-        <li><a href="#">Oldest</a></li>
+        <li><%= nav_link_to("Recent", category_path(sort: :recent)) %></li>
+        <li><%= nav_link_to("Oldest", category_path(sort: :oldest)) %></li>
       </ul>
       <form class="navbar-form navbar-left">
         <%= link_to "Submit a post for #{@category.title}", new_post_path(:category_id => @category.id), 

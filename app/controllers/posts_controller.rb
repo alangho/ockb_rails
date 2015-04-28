@@ -3,9 +3,9 @@ class PostsController < ApplicationController
 
 	def index
 		if params[:search]
-			@posts = Post.search(params[:search]).order("created_at DESC")
+			@posts = Post.search(params[:search]).sort_by(params[:order])
 		else
-			@posts = Post.order("created_at DESC")
+			@posts = Post.sort_by(params[:order])
 		end
 	end
 
